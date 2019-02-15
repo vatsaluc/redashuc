@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
+import { currentUser } from '@/services/auth'; // Changed
 import { wrap as wrapDialog, DialogPropType } from '@/components/DialogWrapper';
 
 class EditTagsDialog extends React.Component {
@@ -46,7 +47,8 @@ class EditTagsDialog extends React.Component {
         className="shortModal"
       >
         <Select
-          mode="tags"
+          // mode="tags"
+          mode={currentUser.isAdmin ? 'tags' : 'multiple'}
           className="w-100"
           placeholder="Add some tags..."
           defaultValue={result}

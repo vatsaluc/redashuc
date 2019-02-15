@@ -17,6 +17,8 @@ services:
       REDASH_LOG_LEVEL: "INFO"
       REDASH_REDIS_URL: "redis://redis:6379/0"
       REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres"
+      REDASH_GOOGLE_CLIENT_ID: "230021716917-0qjm2kbukev1hc2qp2r1vq3mgq78eacb.apps.googleusercontent.com"
+      REDASH_GOOGLE_CLIENT_SECRET: "m6FIKR-RITFL39GgGFjIlFUw"
   worker:
     build: .
     command: scheduler

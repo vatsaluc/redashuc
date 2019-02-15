@@ -4,7 +4,7 @@ import { react2angular } from 'react2angular';
 import { PageHeader } from '@/components/PageHeader';
 import { Paginator } from '@/components/Paginator';
 import { QueryTagsControl } from '@/components/tags-control/TagsControl';
-import { SchedulePhrase } from '@/components/queries/SchedulePhrase';
+// import { SchedulePhrase } from '@/components/queries/SchedulePhrase'; Changed
 
 import { wrap as liveItemsList, createResourceFetcher, ControllerType } from '@/components/items-list/LiveItemsList';
 import LoadingState from '@/components/items-list/components/LoadingState';
@@ -73,10 +73,10 @@ class QueriesList extends React.Component {
     Columns.dateTime.sortable({ title: 'Created At', field: 'created_at' }),
     Columns.duration.sortable({ title: 'Runtime', field: 'runtime' }),
     Columns.dateTime.sortable({ title: 'Last Executed At', field: 'retrieved_at', orderByField: 'executed_at' }),
-    Columns.custom.sortable(
+    /* Columns.custom.sortable(
       (text, item) => <SchedulePhrase schedule={item.schedule} isNew={item.isNew()} />,
       { title: 'Update Schedule', field: 'schedule' },
-    ),
+    ), Changed */
   ];
 
   onTableRowClick = (event, item) => navigateTo('queries/' + item.id);
@@ -190,3 +190,4 @@ export default function init(ngModule) {
 }
 
 init.init = true;
+
