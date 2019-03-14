@@ -39,11 +39,11 @@
                     class="btn btn-sm" ng-click="$ctrl.refreshDashboard()">
               <i class="zmdi zmdi-refresh"></i> {{$ctrl.refreshRate === null ? 'Refresh' : $ctrl.refreshRate.name}}
             </button>
-            <button type="button" class="btn hidden-xs" uib-dropdown-toggle
+<!--            <button type="button" class="btn hidden-xs" uib-dropdown-toggle
                     ng-class="{'btn-default btn-sm': $ctrl.refreshRate === null,'btn-primary btn-sm':$ctrl.refreshRate !== null}">
               <span class="caret"></span>
               <span class="sr-only">Split button!</span>
-            </button>
+            </button>-->
             <ul class="dropdown-menu pull-right" ng-model="$ctrl.refreshRate" uib-dropdown-menu role="menu" aria-labelledby="split-button">
               <li role="menuitem" ng-repeat="refreshRate in $ctrl.refreshRates" ng-class="{disabled: !refreshRate.enabled}">
                 <a href="javascript:void(0)" ng-click="$ctrl.setRefreshRate(refreshRate)">{{refreshRate.name}}</a>

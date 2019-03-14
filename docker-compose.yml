@@ -1,10 +1,8 @@
-# This configuration file is for **development** setup. For production, refer to
-# docker-compose.production.yml.
 version: '3'
 services:
   server:
     build: .
-    command: dev_server
+    command: server
     depends_on:
       - postgres
       - redis
@@ -17,8 +15,10 @@ services:
       REDASH_LOG_LEVEL: "INFO"
       REDASH_REDIS_URL: "redis://redis:6379/0"
       REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres"
+      REDASH_WEB_WORKERS: 4
       REDASH_GOOGLE_CLIENT_ID: "230021716917-0qjm2kbukev1hc2qp2r1vq3mgq78eacb.apps.googleusercontent.com"
       REDASH_GOOGLE_CLIENT_SECRET: "m6FIKR-RITFL39GgGFjIlFUw"
+    restart: always
   worker:
     build: .
     command: scheduler
@@ -32,16 +32,19 @@ services:
       REDASH_REDIS_URL: "redis://redis:6379/0"
       REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres"
       QUEUES: "queries,scheduled_queries,celery"
-      WORKERS_COUNT: 2
+      WORKERS_COUNT: 6
+    restart: always
   redis:
     image: redis:3-alpine
-    restart: unless-stopped
+    restart: always
   postgres:
     image: postgres:9.5-alpine
+    volumes:
+      - /opt/postgres-data:/var/lib/postgresql/data
     # The following turns the DB into less durable, but gains significant performance improvements for the tests run (x3
     # improvement on my personal machine). We should consider moving this into a dedicated Docker Compose configuration for
     # tests.
     ports:
       - "15432:5432"
-    command: "postgres -c fsync=off -c full_page_writes=off -c synchronous_commit=OFF"
-    restart: unless-stopped
+#    command: "postgres -c fsync=off -c full_page_writes=off -c synchronous_commit=OFF"
+    restart: always
